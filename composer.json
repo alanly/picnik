@@ -21,6 +21,9 @@
 		"mockery/mockery": "~0.9"
 	},
 	"autoload": {
+		"classmap": [
+			"tests/Picnik/TestCase.php"
+		],
 		"psr-4": {
 			"Picnik\\": "src/Picnik/"
 		}
