@@ -1,0 +1,28 @@
+{
+	"name": "alanly/picnik",
+	"description": "A modern, Composer and PSR-4 compatible PHP library for interfacing with the Wordnik API.",
+	"type": "library",
+	"homepage": "https://github.com/alanly/picnik",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Alan Ly",
+			"email": "hello@alan.ly",
+			"homepage": "http://alan.ly",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"guzzlehttp/guzzle": "~4"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~4",
+		"mockery/mockery": "~0.9"
+	},
+	"autoload": {
+		"psr-4": {
+			"Picnik\\": "src/Picnik/"
+		}
+	}
+}
