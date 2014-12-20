@@ -24,7 +24,7 @@ In order to use the client, you will first need to obtain an API key from
 
 The client is pretty simple to use,
 
-```
+```php
 $client = new Picnik\Client;
 $client->setApiKey('foobar');
 
