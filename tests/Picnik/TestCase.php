@@ -40,11 +40,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 * @param  ResponseInterface $response the response returned for the request
 	 * @return GuzzleHttp\Client
 	 */
-	protected function getGuzzleGetClientMock($response)
+	protected function getGuzzleClientMock()
 	{
 		$c = m::mock('GuzzleHttp\Client');
-		$c->shouldReceive('get')->andReturn($response);
-
 		return $c;
 	}
 	
