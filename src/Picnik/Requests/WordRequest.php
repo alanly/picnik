@@ -1,6 +1,9 @@
 <?php namespace Picnik\Requests;
 
+use GuzzleHttp\Message\ResponseInterface;
 use Picnik\Client;
+use Picnik\Exceptions\AuthorizationException;
+use Picnik\Exceptions\RequestException;
 
 /**
  * @author  Alan Ly <hello@alan.ly>
@@ -14,19 +17,19 @@ class WordRequest extends AbstractRequest
 	const API_METHOD = 'word';
 
 	/**
+	 * The parameters associated with the request.
+	 * @var array
+	 */
+	protected $parameters = [
+		'useCanonical'       => false,
+		'includeSuggestions' => true,
+	];
+
+	/**
 	 * The word being requested.
 	 * @var string
 	 */
 	private $word;
-
-	/**
-	 * The parameters associated with the request.
-	 * @var array
-	 */
-	private $parameters = [
-		'useCanonical'       => false,
-		'includeSuggestions' => true,
-	];
 
 	/**
 	 * Construct a new word request using a Client and associated word.
@@ -55,25 +58,6 @@ class WordRequest extends AbstractRequest
 	public function setWord($word)
 	{
 		$this->word = $word;
-	}
-
-	/**
-	 * Set a parameter to be used for the request.
-	 * @param string $key
-	 * @param mixed  $value
-	 */
-	public function setParameter($key, $value)
-	{
-		$this->parameters[$key] = $value;
-	}
-
-	/**
-	 * Get an array of the parameters that will be used for the request.
-	 * @return array
-	 */
-	public function getParameters()
-	{
-		return $this->parameters;
 	}
 
 	/**
@@ -110,18 +94,77 @@ class WordRequest extends AbstractRequest
 	 */
 	public function get()
 	{
-		// Generate the appropriate request target.
-		// Execute the request using Guzzle
-		// Parse the response
-		// Return the response
+		// Include the API key into the request parameters.
+		$this->appendApiKeyToRequestParameters();
+		
+		// Create the query target.
+		$target = $this->generateRequestTarget();
+		 
+		// Execute the request and return the parsed response.
+		return $this->performGetRequest($target, $this->parameters);
 	}
 
-	private function assembleRequestTarget()
+	/**
+	 * Given a response, will check for errors and return the resulting data.
+	 * @param  ResponseInterface $response
+	 * @return stdClass
+	 */
+	protected function parseResponse(ResponseInterface $response)
 	{
-		// Append the API key to the parameter array
-		// Convert the parameters into an appropriate request string.
-		// Combine with the API endpoint, request type, and method name.
-		// Return the resulting target.
+		// Check for response errors (! 200)
+		$this->checkResponseErrors($response);
+		
+		// Decode the JSON response into a PHP object.
+		return $response->json(['object' => true]);
+	}
+
+	/**
+	 * Checks the given response for error codes, throwing the appropriate
+	 * exceptions if needed.
+	 * @param  ResponseInterface $response
+	 */
+	protected function checkResponseErrors(ResponseInterface $response)
+	{
+		$status = intval($response->getStatusCode());
+
+		if ($status === 200) return;
+
+		switch ($status) {
+			case 401:
+				throw new AuthorizationException($response);
+			default:
+				throw new RequestException($response);
+		}
+	}
+
+	/**
+	 * Gets the API key from the Client instance and adds it to the request
+	 * parameters. An `AuthorizationException` is thrown when the API key is
+	 * missing from the Client.
+	 * @throws  AuthorizationException  If API key is missing.
+	 */
+	private function appendApiKeyToRequestParameters()
+	{
+		if (! $this->client->getApiKey())
+			throw new AuthorizationException('Missing API key.');
+
+		$this->setParameter(
+			Client::API_KEY_PARAM_NAME,
+			$this->client->getApiKey()
+		);
+	}
+
+	/**
+	 * Generates the request target URL based on the requested word.
+	 * @return string
+	 */
+	private function generateRequestTarget()
+	{
+		$endpoint = Client::API_ENDPOINT;
+		$method = WordRequest::API_METHOD;
+		$format = Client::RESPONSE_FORMAT;
+
+		return "{$endpoint}/{$method}.{$format}/{$this->word}";
 	}
 	
 }

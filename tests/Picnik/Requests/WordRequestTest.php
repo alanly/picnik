@@ -1,5 +1,9 @@
 <?php namespace Picnik\Requests;
 
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Message\Response as GuzzleResponse;
+use GuzzleHttp\Subscriber\History as GuzzleHistory;
+use GuzzleHttp\Subscriber\Mock as GuzzleMock;
 use Picnik\TestCase;
 use Picnik\Client;
 
@@ -94,6 +98,94 @@ class WordRequestTest extends TestCase
 		$this->assertNotSame('bar', $r->getParameters()['includeSuggestions']);
 	}
 
-	
+	/**
+	 * @expectedException Picnik\Exceptions\AuthorizationException
+	 */
+	public function testExceptionThrownWhenGettingTheTargetWithMissingApiKey()
+	{
+		$c = $this->getClientMock();
+		$c->shouldReceive('getApiKey')->once()->andReturn('');
+		$r = new WordRequest($c, 'foobar');
+
+		$r->get();
+	}
+
+	/**
+	 * @expectedException Picnik\Exceptions\AuthorizationException
+	 */
+	public function testAuthorizationExceptionThrownOnUnauthorizedResponse()
+	{
+		$r = $this->getResponseMock(401, new \stdClass);
+		
+		$g = $this->getGuzzleClientMock();
+		$g->shouldReceive('get')->andReturn($r);
+
+		$c = $this->getClientMock();
+		$c->shouldReceive('getApiKey')->andReturn('foobar');
+		$c->shouldReceive('getGuzzle')->andReturn($g);
+
+		$wr = new WordRequest($c, 'foobar');
+		$wr->get();
+	}
+
+	/**
+	 * @expectedException Picnik\Exceptions\RequestException
+	 */
+	public function testRequestExceptionThrownOnNonSuccessResponse()
+	{
+		$r = $this->getResponseMock(400, new \stdClass);
+		
+		$g = $this->getGuzzleClientMock();
+		$g->shouldReceive('get')->andReturn($r);
+
+		$c = $this->getClientMock();
+		$c->shouldReceive('getApiKey')->andReturn('foobar');
+		$c->shouldReceive('getGuzzle')->andReturn($g);
+
+		$wr = new WordRequest($c, 'foobar');
+		$wr->get();
+	}
+
+	public function testProperRequestGenerated()
+	{
+		$gc = new GuzzleClient;
+		$gh = new GuzzleHistory;
+		$gm = new GuzzleMock([new GuzzleResponse(200)]);
+
+		$gc->getEmitter()->attach($gm);
+		$gc->getEmitter()->attach($gh);
+
+		$c = $this->getClientMock();
+		$c->shouldReceive('getApiKey')->andReturn('foobar');
+		$c->shouldReceive('getGuzzle')->andReturn($gc);
+
+		$wr = new WordRequest($c, 'foobar');
+		$wr->get();
+
+		$gRequest = $gh->getLastRequest();
+
+		$target = 'https://api.wordnik.com/v4/word.json/foobar';
+
+		$this->assertStringStartsWith($target, $gRequest->getUrl());
+		$this->assertEquals($wr->getParameters(), $gRequest->getQuery()->toArray());
+	}
+
+	public function testClassReturnedOnSuccessfulResponse()
+	{
+		$rc = new \stdClass;
+
+		$r = $this->getResponseMock(200, $rc);
+		
+		$g = $this->getGuzzleClientMock();
+		$g->shouldReceive('get')->andReturn($r);
+
+		$c = $this->getClientMock();
+		$c->shouldReceive('getApiKey')->andReturn('foobar');
+		$c->shouldReceive('getGuzzle')->andReturn($g);
+
+		$wr = new WordRequest($c, 'foobar');
+		
+		$this->assertSame($rc, $wr->get());
+	}
 
 }
