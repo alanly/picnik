@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client as Guzzle;
 use Picnik\Requests\Word\WordRequest;
+use Picnik\Requests\Word\DefinitionsRequest;
 
 /**
  * @author  Alan Ly <hello@alan.ly>
@@ -89,12 +90,12 @@ class Client
 	}
 
 	/**
-	 * Create a new word:definition request that allows us to retrieve a
+	 * Create a new word:definitions request that allows us to retrieve a
 	 * selection of definitions for a specific word from the API.
 	 * @param  string  $word  the word to query
 	 * @return DefinitionsRequest
 	 */
-	public function wordDefinition($word)
+	public function wordDefinitions($word)
 	{
 		return new DefinitionsRequest($this, $word);
 	}

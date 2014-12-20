@@ -24,4 +24,14 @@ class ClientTest extends TestCase
 		$this->assertInstanceOf('Picnik\Requests\Word\WordRequest', $request);
 	}
 
+	public function testDefinitionInstanceCreatedForWord()
+	{
+		$c = new Client;
+		$c->setApiKey('foobar');
+
+		$request = $c->wordDefinitions('bar');
+
+		$this->assertInstanceOf('Picnik\Requests\Word\DefinitionsRequest', $request);
+	}
+
 }
