@@ -7,6 +7,9 @@ use GuzzleHttp\Subscriber\Mock as GuzzleMock;
 use Picnik\TestCase;
 use Picnik\Client;
 
+/**
+ * @author Alan Ly <hello@alan.ly>
+ */
 class WordRequestTest extends TestCase
 {
 

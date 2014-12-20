@@ -2,6 +2,9 @@
 
 use Picnik\Client;
 
+/**
+ * @author Alan Ly <hello@alan.ly>
+ */
 class DefinitionsRequest extends AbstractWordRequest
 {
 

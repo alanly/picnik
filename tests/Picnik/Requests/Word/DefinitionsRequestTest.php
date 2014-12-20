@@ -6,6 +6,9 @@ use GuzzleHttp\Subscriber\History as GuzzleHistory;
 use GuzzleHttp\Subscriber\Mock as GuzzleMock;
 use Picnik\TestCase;
 
+/**
+ * @author Alan Ly <hello@alan.ly>
+ */
 class DefinitionsRequestTest extends TestCase
 {
 

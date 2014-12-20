@@ -3,6 +3,9 @@
 use Mockery;
 use Picnik\TestCase;
 
+/**
+ * @author Alan Ly <hello@alan.ly>
+ */
 class AbstractWordRequestTest extends TestCase
 {
 

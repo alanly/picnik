@@ -6,6 +6,9 @@ use Picnik\Exceptions\AuthorizationException;
 use Picnik\Exceptions\RequestException;
 use Picnik\Requests\AbstractRequest;
 
+/**
+ * @author Alan Ly <hello@alan.ly>
+ */
 abstract class AbstractWordRequest extends AbstractRequest
 {
 	
