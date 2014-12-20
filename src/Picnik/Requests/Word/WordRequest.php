@@ -15,27 +15,6 @@ class WordRequest extends AbstractWordRequest
 	const API_METHOD = 'word';
 
 	/**
-	 * The parameters associated with the request.
-	 * @var array
-	 */
-	protected $parameters = [
-		'useCanonical'       => false,
-		'includeSuggestions' => true,
-	];
-
-	/**
-	 * Use the canonical variant of the word if necessary. This is a chainable
-	 * function. The API does not guarantee the return of a canonical word.
-	 * @param  boolean $use
-	 * @return WordRequest
-	 */
-	public function useCanonical($use = true)
-	{
-		$this->setParameter('useCanonical', ($use ? true : false));
-		return $this;
-	}
-
-	/**
 	 * Include alternate suggestions for the requested word. This is a chainable
 	 * function. The API does not guarantee the return of suggested words.
 	 * @param  boolean $include

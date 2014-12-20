@@ -19,7 +19,7 @@ abstract class AbstractRequest
 	 * The parameters associated with the request.
 	 * @var array
 	 */
-	protected $parameters;
+	protected $parameters = [];
 
 	public function __construct(Client $client)
 	{
@@ -80,6 +80,12 @@ abstract class AbstractRequest
 	 * @return mixed
 	 */
 	abstract protected function parseResponse(ResponseInterface $response);
+
+	/**
+	 * Generates the request target URL based on the requested word.
+	 * @return string
+	 */
+	abstract protected function generateRequestTarget();
 
 	/**
 	 * Executes the GET request over the given target with the given GET parameters.

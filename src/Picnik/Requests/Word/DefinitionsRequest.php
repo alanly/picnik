@@ -1,6 +1,6 @@
-<?php namespace Picnik\Requests;
+<?php namespace Picnik\Requests\Word;
 
-class WordDefinitionsRequest extends WordRequest
+class DefinitionsRequest extends AbstractWordRequest
 {
 	
 }

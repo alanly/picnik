@@ -44,6 +44,18 @@ abstract class AbstractWordRequest extends AbstractRequest
 		$this->word = $word;
 	}
 
+		/**
+	 * Use the canonical variant of the word if necessary. This is a chainable
+	 * function. The API does not guarantee the return of a canonical word.
+	 * @param  boolean $use
+	 * @return WordRequest
+	 */
+	public function useCanonical($use = true)
+	{
+		$this->setParameter('useCanonical', ($use ? true : false));
+		return $this;
+	}
+
 	/**
 	 * Given a response, will check for errors and return the resulting data.
 	 * @param  ResponseInterface $response
