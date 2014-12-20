@@ -78,14 +78,25 @@ class Client
 	}
 
 	/**
-	 * Create a new Word request that allows us to query a specific word from
+	 * Create a new word request that allows us to query a specific word from
 	 * the API.
-	 * @param  string $word the word that we want to lookup
+	 * @param  string  $word  the word that we want to lookup
 	 * @return WordRequest
 	 */
 	public function word($word)
 	{
 		return new WordRequest($this, $word);
+	}
+
+	/**
+	 * Create a new word:definition request that allows us to retrieve a
+	 * selection of definitions for a specific word from the API.
+	 * @param  string  $word  the word to query
+	 * @return DefinitionsRequest
+	 */
+	public function wordDefinition($word)
+	{
+		return new DefinitionsRequest($this, $word);
 	}
 	
 }
