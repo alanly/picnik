@@ -23,7 +23,25 @@ abstract class AbstractRequest
 
 	public function __construct(Client $client)
 	{
+		$this->setClient($client);
+	}
+
+	/**
+	 * Set the client instance to be used for the request.
+	 * @param Client $client
+	 */
+	public function setClient(Client $client)
+	{
 		$this->client = $client;
+	}
+
+	/**
+	 * Gets the client instance used for the request.
+	 * @return Client
+	 */
+	public function getClient()
+	{
+		return $this->client;
 	}
 
 	/**
