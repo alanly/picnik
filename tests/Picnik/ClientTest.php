@@ -21,7 +21,7 @@ class ClientTest extends TestCase
 
 		$request = $c->word('bar');
 
-		$this->assertInstanceOf('Picnik\Requests\WordRequest', $request);
+		$this->assertInstanceOf('Picnik\Requests\Word\WordRequest', $request);
 	}
 
 }

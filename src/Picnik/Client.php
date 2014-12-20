@@ -1,7 +1,7 @@
 <?php namespace Picnik;
 
 use GuzzleHttp\Client as Guzzle;
-use Picnik\Requests\WordRequest;
+use Picnik\Requests\Word\WordRequest;
 
 /**
  * @author  Alan Ly <hello@alan.ly>

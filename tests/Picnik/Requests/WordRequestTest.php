@@ -1,4 +1,4 @@
-<?php namespace Picnik\Requests;
+<?php namespace Picnik\Requests\Word;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Message\Response as GuzzleResponse;

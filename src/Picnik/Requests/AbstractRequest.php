@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Message\ResponseInterface;
 use Picnik\Client;
+use Picnik\Exceptions\AuthorizationException;
 
 /**
  * @author  Alan Ly <hello@alan.ly>
@@ -45,10 +46,20 @@ abstract class AbstractRequest
 	}
 
 	/**
-	 * Executes the GET request represented by the instance.
+	 * Execute the request and return the parsed response.
 	 * @return mixed
 	 */
-	abstract public function get();
+	public function get()
+	{
+		// Include the API key into the request parameters.
+		$this->appendApiKeyToRequestParameters();
+		
+		// Create the query target.
+		$target = $this->generateRequestTarget();
+		 
+		// Execute the request and return the parsed response.
+		return $this->performGetRequest($target, $this->parameters);
+	}
 
 	/**
 	 * Orchestrates the GET request and response parsing.
@@ -82,6 +93,23 @@ abstract class AbstractRequest
 		$guzzle = $this->client->getGuzzle();
 		$response = $guzzle->get($target, ['query' => $parameters]);
 		return $response;
+	}
+
+	/**
+	 * Gets the API key from the Client instance and adds it to the request
+	 * parameters. An `AuthorizationException` is thrown when the API key is
+	 * missing from the Client.
+	 * @throws  AuthorizationException  If API key is missing.
+	 */
+	private function appendApiKeyToRequestParameters()
+	{
+		if (! $this->client->getApiKey())
+			throw new AuthorizationException('Missing API key.');
+
+		$this->setParameter(
+			Client::API_KEY_PARAM_NAME,
+			$this->client->getApiKey()
+		);
 	}
 	
 }
