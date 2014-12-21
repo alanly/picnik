@@ -63,7 +63,7 @@ class DefinitionsRequestTest extends TestCase
 		$r = $this->getRequestInstance('foobar');
 		$r->includeRelated(true);
 
-		$this->assertSame(true, $r->getParameters()['includeRelated']);
+		$this->assertSame('true', $r->getParameters()['includeRelated']);
 	}
 
 	public function testSourceDictionariesParameterWithString()
@@ -95,7 +95,7 @@ class DefinitionsRequestTest extends TestCase
 		$r = $this->getRequestInstance('foobar');
 		$r->includeTags(true);
 
-		$this->assertSame(true, $r->getParameters()['includeTags']);
+		$this->assertSame('true', $r->getParameters()['includeTags']);
 	}
 	
 }

@@ -51,6 +51,8 @@ abstract class AbstractRequest
 	 */
 	public function setParameter($key, $value)
 	{
+		if (is_bool($value)) $value = ($value ? 'true' : 'false');
+
 		$this->parameters[$key] = $value;
 	}
 

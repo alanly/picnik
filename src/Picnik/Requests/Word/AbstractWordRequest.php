@@ -55,7 +55,7 @@ abstract class AbstractWordRequest extends AbstractRequest
 	 */
 	public function useCanonical($use = true)
 	{
-		$this->setParameter('useCanonical', ($use ? 'true' : 'false'));
+		$this->setParameter('useCanonical', ($use ? true : false));
 		return $this;
 	}
 
