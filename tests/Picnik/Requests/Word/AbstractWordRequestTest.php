@@ -52,7 +52,7 @@ class AbstractWordRequestTest extends TestCase
 		$r = $this->getAbstractInstance();
 		$r->useCanonical();
 
-		$this->assertTrue($r->getParameters()['useCanonical']);
+		$this->assertSame('true', $r->getParameters()['useCanonical']);
 	}
 
 	public function testUsingCanonicalWithFalseParameter()
@@ -60,7 +60,7 @@ class AbstractWordRequestTest extends TestCase
 		$r = $this->getAbstractInstance();
 		$r->useCanonical(false);
 
-		$this->assertFalse($r->getParameters()['useCanonical']);
+		$this->assertSame('false', $r->getParameters()['useCanonical']);
 	}
 
 	public function testUsingCanonicalWithNoneBooleanParameter()
