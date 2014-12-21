@@ -24,7 +24,7 @@ class WordRequestTest extends TestCase
 		$r = $this->getRequestInstance('foobar');
 		$r->includeSuggestions();
 
-		$this->assertTrue($r->getParameters()['includeSuggestions']);
+		$this->assertSame('true', $r->getParameters()['includeSuggestions']);
 	}
 
 	public function testIncludingSuggestionsWithFalseParameter()
@@ -32,7 +32,7 @@ class WordRequestTest extends TestCase
 		$r = $this->getRequestInstance('foobar');
 		$r->includeSuggestions(false);
 
-		$this->assertFalse($r->getParameters()['includeSuggestions']);
+		$this->assertSame('false', $r->getParameters()['includeSuggestions']);
 	}
 
 	public function testIncludingSuggestionsWithNoneBooleanParameter()
