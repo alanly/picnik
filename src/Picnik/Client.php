@@ -1,8 +1,6 @@
 <?php namespace Picnik;
 
 use GuzzleHttp\Client as Guzzle;
-use Picnik\Requests\Word\WordRequest;
-use Picnik\Requests\Word\DefinitionsRequest;
 
 /**
  * @author  Alan Ly <hello@alan.ly>
@@ -86,7 +84,7 @@ class Client
 	 */
 	public function word($word)
 	{
-		return new WordRequest($this, $word);
+		return new Requests\Word\WordRequest($this, $word);
 	}
 
 	/**
@@ -97,7 +95,18 @@ class Client
 	 */
 	public function wordDefinitions($word)
 	{
-		return new DefinitionsRequest($this, $word);
+		return new Requests\Word\DefinitionsRequest($this, $word);
+	}
+
+	/**
+	 * Create a new word:audio request that allows us to retrieve a temporary
+	 * URL to an audio pronounciation of a word, from the API.
+	 * @param  string  $word  the word to query
+	 * @return Picnik\Requests\Word\AudioRequest
+	 */
+	public function wordAudio($word)
+	{
+		return new Requests\Word\AudioRequest($this, $word);
 	}
 	
 }
