@@ -34,4 +34,14 @@ class ClientTest extends TestCase
 		$this->assertInstanceOf('Picnik\Requests\Word\DefinitionsRequest', $request);
 	}
 
+	public function testAudioInstanceCreatedForWord()
+	{
+		$c = new Client;
+		$c->setApiKey('foobar');
+
+		$request = $c->wordAudio('bar');
+
+		$this->assertInstanceOf('Picnik\Requests\Word\AudioRequest', $request);
+	}
+
 }

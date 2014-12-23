@@ -1,27 +1,18 @@
 <?php namespace Picnik\Requests\Word;
 
 use Picnik\Client;
+use Picnik\Requests\LimitableInterface;
+use Picnik\Requests\LimitTrait;
 
 /**
  * @author Alan Ly <hello@alan.ly>
  */
-class DefinitionsRequest extends AbstractWordRequest
+class DefinitionsRequest extends AbstractWordRequest implements LimitableInterface
 {
 
-	const API_METHOD = 'definitions';
+	use LimitTrait;
 
-	/**
-	 * The maximum number of definitions that should be returned for the request.
-	 * This method is chainable.
-	 * @param  int $number limit the number of results to this amount
-	 * @return DefinitionsRequest
-	 */
-	public function limit($number)
-	{
-		$limit = intval($number);
-		$this->setParameter('limit', $limit);
-		return $this;
-	}
+	const API_METHOD = 'definitions';
 
 	/**
 	 * Defines the usage of the word. Refer to API documentation for greater
