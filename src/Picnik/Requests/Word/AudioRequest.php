@@ -1,5 +1,6 @@
 <?php namespace Picnik\Requests\Word;
 
+use Picnik\Client;
 use Picnik\Requests\LimitableInterface;
 use Picnik\Requests\LimitTrait;
 
