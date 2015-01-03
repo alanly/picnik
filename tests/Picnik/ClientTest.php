@@ -61,4 +61,12 @@ class ClientTest extends TestCase
 		$this->assertInstanceOf('Picnik\Requests\Word\HyphenationRequest', $r);
 	}
 
+	public function testPronunciationsInstanceCreatedForWord()
+	{
+		$c = $this->makeClientInstance();
+		$r = $c->wordPronunciations('bar');
+
+		$this->assertInstanceOf('Picnik\Requests\Word\PronunciationsRequest', $r);
+	}
+
 }

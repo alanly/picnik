@@ -119,5 +119,10 @@ class Client
 	{
 		return new Requests\Word\HyphenationRequest($this, $word);
 	}
+
+	public function wordPronunciations($word)
+	{
+		return new Requests\Word\PronunciationsRequest($this, $word);
+	}
 	
 }
