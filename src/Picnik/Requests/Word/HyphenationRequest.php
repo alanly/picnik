@@ -3,31 +3,21 @@
 use Picnik\Client;
 use Picnik\Requests\LimitableInterface;
 use Picnik\Requests\LimitTrait;
+use Picnik\Requests\SourceDictionaryInterface;
+use Picnik\Requests\SourceDictionaryTrait;
 
 /**
  * @author Alan Ly <hello@alan.ly>
  */
-class HyphenationRequest extends AbstractWordRequest implements LimitableInterface
+class HyphenationRequest
+	extends AbstractWordRequest
+	implements LimitableInterface, SourceDictionaryInterface
 {
 
 	use LimitTrait;
+	use SourceDictionaryTrait;
 
 	const API_METHOD = 'hyphenation';
-
-	/**
-	 * The dictionary to retrieve the hyphenation from. Please refer to the API
-	 * documentation for further details concerning available options. This method
-	 * is chainable.
-	 * @param  string  $dictionary the source dictionary to use
-	 * @return HyphenationRequest
-	 */
-	public function sourceDictionary($dictionary = null)
-	{
-		if (! $dictionary) return $this;
-
-		$this->setParameter('sourceDictionary', $dictionary);
-		return $this;
-	}
 
 	/**
 	 * Generates the request target URL based on the requested word.
