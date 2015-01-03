@@ -1,6 +1,7 @@
 <?php namespace Picnik\Requests;
 
-trait LimitTrait {
+trait LimitTrait
+{
 
 	/**
 	 * The maximum number of pronounciations that should be returned for the

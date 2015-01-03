@@ -1,6 +1,7 @@
 <?php namespace Picnik\Requests;
 
-interface LimitableInterface {
+interface LimitableInterface
+{
 
 	/**
 	 * The maximum number of pronounciations that should be returned for the
