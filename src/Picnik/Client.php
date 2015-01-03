@@ -108,5 +108,16 @@ class Client
 	{
 		return new Requests\Word\AudioRequest($this, $word);
 	}
+
+	/**
+	 * Create a new word:hyphenation request that allows us to retrieve the
+	 * hyphenated variant of a word from the API.
+	 * @param  string $word the word to query
+	 * @return Picnik\Requests\Word\HyphentationRequest
+	 */
+	public function wordHyphenation($word)
+	{
+		return new Requests\Word\HyphenationRequest($this, $word);
+	}
 	
 }
