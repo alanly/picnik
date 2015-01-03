@@ -6,6 +6,14 @@
 class ClientTest extends TestCase
 {
 
+	protected function makeClientInstance($key = 'foobar')
+	{
+		$c = new Client;
+		$c->setApiKey($key);
+
+		return $c;
+	}
+
 	public function testSetApiInstanceKeyInSetter()
 	{
 		$c = new Client;
@@ -42,6 +50,23 @@ class ClientTest extends TestCase
 		$request = $c->wordAudio('bar');
 
 		$this->assertInstanceOf('Picnik\Requests\Word\AudioRequest', $request);
+	}
+
+	public function testHyphenationInstanceCreatedForWord()
+	{
+		$c = $this->makeClientInstance();
+
+		$r = $c->wordHyphenation('bar');
+
+		$this->assertInstanceOf('Picnik\Requests\Word\HyphenationRequest', $r);
+	}
+
+	public function testPronunciationsInstanceCreatedForWord()
+	{
+		$c = $this->makeClientInstance();
+		$r = $c->wordPronunciations('bar');
+
+		$this->assertInstanceOf('Picnik\Requests\Word\PronunciationsRequest', $r);
 	}
 
 }
