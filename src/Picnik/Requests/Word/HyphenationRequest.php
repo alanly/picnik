@@ -14,8 +14,7 @@ class HyphenationRequest
 	implements LimitableInterface, SourceDictionaryInterface
 {
 
-	use LimitTrait;
-	use SourceDictionaryTrait;
+	use LimitTrait, SourceDictionaryTrait;
 
 	const API_METHOD = 'hyphenation';
 
