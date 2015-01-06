@@ -69,4 +69,12 @@ class ClientTest extends TestCase
 		$this->assertInstanceOf('Picnik\Requests\Word\PronunciationsRequest', $r);
 	}
 
+	public function testRelatedWordsInstanceCreatedForWord()
+	{
+		$c = $this->makeClientInstance();
+		$r = $c->wordRelatedWords('bar');
+
+		$this->assertInstanceOf('Picnik\Requests\Word\RelatedWordsRequest', $r);
+	}
+
 }

@@ -33,7 +33,7 @@ class PronunciationsRequest
 	 * Generates the request target URL based on the requested word.
 	 * @return string
 	 */
-	public function generateRequestTarget()
+	protected function generateRequestTarget()
 	{
 		$endpoint = Client::API_ENDPOINT;
 		$baseMethod = WordRequest::API_METHOD;
