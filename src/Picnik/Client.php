@@ -130,5 +130,16 @@ class Client
 	{
 		return new Requests\Word\PronunciationsRequest($this, $word);
 	}
+
+	/**
+	 * Create a new word:relatedWords request that allows us to query for other
+	 * words that are associated with the queried word.
+	 * @param  string  $word  the associated word
+	 * @return Picnik\Requests\Word\RelatedWordsRequest
+	 */
+	public function wordRelatedWords($word)
+	{
+		return new Requests\Word\RelatedWordsRequest($this, $word);
+	}
 	
 }
