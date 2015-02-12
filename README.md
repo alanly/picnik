@@ -42,3 +42,8 @@ var_dump( $definitions[0]->text )
 // domesticated since early times as a catcher of rats and mice and as a pet
 // and existing in several distinctive breeds and varieties."
 ```
+
+License
+------
+
+This library is released under the MIT license. For details, you can refer to the [full license](LICENSE.md) document.
